@@ -29,11 +29,12 @@ export declare class Admin {
     email: string;
     phone_number: string;
     tg_link: string;
-    hashed_password: string;
     hashed_token: string;
     is_active: boolean;
     is_creator: boolean;
     description: string;
+    hashed_password: string;
+    activation_link: string;
 }
 export declare const AdminSchema: import("mongoose").Schema<Admin, import("mongoose").Model<Admin, any, any, any, import("mongoose").Document<unknown, any, Admin> & Admin & {
     _id: import("mongoose").Types.ObjectId;

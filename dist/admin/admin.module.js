@@ -13,6 +13,7 @@ const admin_controller_1 = require("./admin.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const admin_schema_1 = require("./schemas/admin.schema");
 const jwt_1 = require("@nestjs/jwt");
+const mail_module_1 = require("../mail/mail.module");
 let AdminModule = exports.AdminModule = class AdminModule {
 };
 exports.AdminModule = AdminModule = __decorate([
@@ -20,6 +21,7 @@ exports.AdminModule = AdminModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: admin_schema_1.Admin.name, schema: admin_schema_1.AdminSchema }]),
             jwt_1.JwtModule.register({}),
+            mail_module_1.MailModule,
         ],
         controllers: [admin_controller_1.AdminController],
         providers: [admin_service_1.AdminService],

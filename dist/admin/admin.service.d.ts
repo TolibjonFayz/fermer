@@ -22,23 +22,19 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { BadRequestException } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { Admin, AdminDocument } from './schemas/admin.schema';
+import { Admin } from './schemas/admin.schema';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
+import { MailService } from '../mail/mail.service';
+import { SignInAdminDto } from './dto/signin-admin.dto';
 export declare class AdminService {
     private adminModel;
     private readonly jwtService;
-    constructor(adminModel: Model<Admin>, jwtService: JwtService);
-    create(createAdminDto: CreateAdminDto): Promise<(import("mongoose").Document<unknown, {}, Admin> & Admin & {
-        _id: import("mongoose").Types.ObjectId;
-    }) | BadRequestException>;
-    generateToken(admin: AdminDocument): Promise<{
-        access_token: string;
-        refresh_token: string;
-    }>;
+    private readonly mailService;
+    constructor(adminModel: Model<Admin>, jwtService: JwtService, mailService: MailService);
     findAll(): Promise<Admin[]>;
     findOne(id: string): Promise<import("mongoose").Document<unknown, {}, Admin> & Admin & {
         _id: import("mongoose").Types.ObjectId;
@@ -48,5 +44,46 @@ export declare class AdminService {
     }>;
     remove(id: string): Promise<import("mongoose").Document<unknown, {}, Admin> & Admin & {
         _id: import("mongoose").Types.ObjectId;
+    }>;
+    signUp(createAdminDto: CreateAdminDto, res: Response): Promise<{
+        message: string;
+        admin: import("mongoose").Document<unknown, {}, Admin> & Admin & {
+            _id: import("mongoose").Types.ObjectId;
+        };
+        tokens: {
+            access_token: string;
+            refresh_token: string;
+        };
+    }>;
+    getTokens(admin: Admin): Promise<{
+        access_token: string;
+        refresh_token: string;
+    }>;
+    signIn(singInAdminDto: SignInAdminDto, res: Response): Promise<{
+        message: string;
+        admin: import("mongoose").Document<unknown, {}, Admin> & Admin & {
+            _id: import("mongoose").Types.ObjectId;
+        };
+        tokens: {
+            access_token: string;
+            refresh_token: string;
+        };
+    }>;
+    signout(refresh_token: string, res: Response): Promise<{
+        message: string;
+    }>;
+    activate(link: string): Promise<{
+        message: string;
+        admin: import("mongoose").UpdateWriteOpResult;
+    }>;
+    refreshToken(admin_id: string, refreshToken: string, res: Response): Promise<{
+        message: string;
+        admin: import("mongoose").Document<unknown, {}, Admin> & Admin & {
+            _id: import("mongoose").Types.ObjectId;
+        };
+        token: {
+            access_token: string;
+            refresh_token: string;
+        };
     }>;
 }

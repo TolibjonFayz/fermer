@@ -17,12 +17,11 @@ const common_1 = require("@nestjs/common");
 const admin_service_1 = require("./admin.service");
 const create_admin_dto_1 = require("./dto/create-admin.dto");
 const update_admin_dto_1 = require("./dto/update-admin.dto");
+const signin_admin_dto_1 = require("./dto/signin-admin.dto");
+const cookieGetter_decorator_1 = require("../decorators/cookieGetter.decorator");
 let AdminController = exports.AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
-    }
-    create(createAdminDto) {
-        return this.adminService.create(createAdminDto);
     }
     findAll() {
         return this.adminService.findAll();
@@ -36,14 +35,22 @@ let AdminController = exports.AdminController = class AdminController {
     remove(id) {
         return this.adminService.remove(id);
     }
+    async register(createAdminDto, res) {
+        return this.adminService.signUp(createAdminDto, res);
+    }
+    activate(link) {
+        return this.adminService.activate(link);
+    }
+    async signin(signInAdminDto, res) {
+        return this.adminService.signIn(signInAdminDto, res);
+    }
+    async signout(refresh_token, res) {
+        return this.adminService.signout(refresh_token, res);
+    }
+    refresh(id, refreshToken, res) {
+        return this.adminService.refreshToken(id, refreshToken, res);
+    }
 };
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_admin_dto_1.CreateAdminDto]),
-    __metadata("design:returntype", void 0)
-], AdminController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -72,6 +79,46 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)('register'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_admin_dto_1.CreateAdminDto, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "register", null);
+__decorate([
+    (0, common_1.Get)('activate/:link'),
+    __param(0, (0, common_1.Param)('link')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "activate", null);
+__decorate([
+    (0, common_1.Post)('signin'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [signin_admin_dto_1.SignInAdminDto, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Post)('signout'),
+    __param(0, (0, cookieGetter_decorator_1.CookieGetter)('refresh_token')),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "signout", null);
+__decorate([
+    (0, common_1.Post)(':id/refresh'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, cookieGetter_decorator_1.CookieGetter)('refresh_token')),
+    __param(2, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "refresh", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     __metadata("design:paramtypes", [admin_service_1.AdminService])

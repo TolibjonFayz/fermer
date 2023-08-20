@@ -30,15 +30,11 @@ __decorate([
     __metadata("design:type", String)
 ], Admin.prototype, "tg_link", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Admin.prototype, "hashed_password", void 0);
-__decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Admin.prototype, "hashed_token", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: true }),
+    (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], Admin.prototype, "is_active", void 0);
 __decorate([
@@ -49,8 +45,16 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Admin.prototype, "description", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Admin.prototype, "hashed_password", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Admin.prototype, "activation_link", void 0);
 exports.Admin = Admin = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({ versionKey: false })
 ], Admin);
 exports.AdminSchema = mongoose_1.SchemaFactory.createForClass(Admin);
 //# sourceMappingURL=admin.schema.js.map
