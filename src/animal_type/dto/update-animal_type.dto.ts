@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateAnimalTypeDto } from './create-animal_type.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateAnimalTypeDto extends PartialType(CreateAnimalTypeDto) {}
+export class UpdateAnimalTypeDto {
+  @ApiProperty({ example: 'Sut emizuvchi', description: 'Hayvon  turi' })
+  type_name: string;
+
+  @ApiProperty({
+    example: 'Anabunaqa, manabunaqa',
+    description: 'Ta`rif',
+  })
+  description: string;
+}

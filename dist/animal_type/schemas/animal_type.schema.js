@@ -11,13 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnimalTypeSchema = exports.AnimalType = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const swagger_1 = require("@nestjs/swagger");
 let AnimalType = exports.AnimalType = class AnimalType {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
+    (0, swagger_1.ApiProperty)({ example: 'Sut emizuvchi', description: 'Hayvon  turi' }),
     __metadata("design:type", String)
 ], AnimalType.prototype, "type_name", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Anabunaqa, manabunaqa',
+        description: 'Ta`rif',
+    }),
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], AnimalType.prototype, "description", void 0);

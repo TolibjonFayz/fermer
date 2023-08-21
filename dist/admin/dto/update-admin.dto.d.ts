@@ -1,5 +1,9 @@
-import { CreateAdminDto } from './create-admin.dto';
-declare const UpdateAdminDto_base: import("@nestjs/mapped-types").MappedType<Partial<CreateAdminDto>>;
-export declare class UpdateAdminDto extends UpdateAdminDto_base {
+export declare class UpdateAdminDto {
+    full_name: string;
+    email: string;
+    phone_number: string;
+    tg_link: string;
+    password: string;
+    confirm_password: string;
+    description: string;
 }
-export {};
